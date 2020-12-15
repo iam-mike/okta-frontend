@@ -45,7 +45,7 @@ class ProfileComponent implements OnInit {
     this.accessToken = this.oktaAuth.getAccessToken();
     this.claims = Object.entries(userClaims).map(entry => ({ claim: entry[0], value: entry[1] }));
     //this.aClaims = Object.entries(accessToken).map(entry => ({ claim: entry[0], value: entry[1] }));
-    this.http.post<any>('https://decedo.okta.com/oauth2/default/v1/introspect?client_id=0oa1pindts9Rdw5pr5d6&grant_type=authorization_code&redirect_uri=http://localhost:4200&code=${{ this.accessToken }}', { title: 'Okta Introspection' }).subscribe(data => {
+    this.http.post<any>('https://decedo.okta.com/oauth2/default/v1/introspect?client_id=0oa1pindts9Rdw5pr5d6&grant_type=authorization_code&redirect_uri=http://okta-frontend.herokuapp.com:4200&code=${{ this.accessToken }}', { title: 'Okta Introspection' }).subscribe(data => {
         this.treasure = data.id;
     })
   }
