@@ -11,5 +11,7 @@
  */
 
 export const environment = {
-  production: true
+  production: true,
+  REDIRECT_URI: "http://localhost:4200/login/callback"
+};
 };
