@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   isAuthenticated: boolean;
   resourceServerExamples: Array<ResourceServerExample>;
   userName: string;
+  permutations: Array<String>;
 
   constructor(public oktaAuth: OktaAuthService) {
     this.resourceServerExamples = [
@@ -69,8 +70,36 @@ export class HomeComponent implements OnInit {
 
   submit(){
     console.log(this.form.value);
-    alert(this.getArrayMutations(this.form.value));
-    this.form.reset();
+    var string = this.form.value;
+
+    let findPermutations = (string) => {
+      if (!string || typeof string !== "string"){
+        return "Please enter a string"
+      }
+    
+      if (!!string.length && string.length < 2 ){
+        return string
+      }
+    
+      let permutationsArray = [] 
+       
+      for (let i = 0; i < string.length; i++){
+        let char = string[i]
+    
+        if (string.indexOf(char) != i)
+        continue
+    
+        let remainder = string.slice(0, i) + string.slice(i + 1, string.length)
+    
+        for (let permutation of findPermutations(remainder)){
+          permutationsArray.push(char + permutation) }
+      }
+      this.permutations = permutationsArray
+    }
+
+    alert(JSON.stringify(this.permutations));
+
+    //this.form.reset();
   }
   
   async ngOnInit() {
