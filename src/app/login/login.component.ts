@@ -17,11 +17,14 @@ import sampleConfig from '../app.config';
 
 const DEFAULT_ORIGINAL_URI = window.location.origin;
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
 export class LoginComponent implements OnInit {
   signIn: any;
 
@@ -35,11 +38,16 @@ export class LoginComponent implements OnInit {
       baseUrl: sampleConfig.oidc.issuer.split('/oauth2')[0],
       clientId: sampleConfig.oidc.clientId,
       redirectUri: sampleConfig.oidc.redirectUri,
-      logo: '/assets/angular.svg',
+      logo: '//logo.clearbit.com/oauth.net',
       i18n: {
         en: {
-          'primaryauth.title': 'Sign in to Angular & Company',
+          'primaryauth.title': 'Log in to this awesome app',
+          'primaryauth.submit': 'Enter the matrix', 
         },
+      },
+      features: {
+        rememberMe: false,
+        selfServiceUnlock: true,
       },
       authParams: {
         issuer: sampleConfig.oidc.issuer
@@ -67,5 +75,4 @@ export class LoginComponent implements OnInit {
       throw err;
     });
   }
-
 }
