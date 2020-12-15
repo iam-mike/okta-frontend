@@ -28,11 +28,7 @@ interface Claim {
   styleUrls: ['./profile.component.css']
 })
 
-@NgModule({
-  imports:[HttpClientModule]
-})
-
-export class ProfileComponent implements OnInit {
+class ProfileComponent implements OnInit {
   idToken;
   accessToken;
   claims: Array<Claim>;
@@ -53,5 +49,5 @@ export class ProfileComponent implements OnInit {
         this.treasure = data.id;
     })
   }
-
 }
+export default ProfileComponent
