@@ -11,6 +11,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OktaAuthService } from '@okta/okta-angular';
 
 interface ResourceServerExample {
@@ -50,6 +51,28 @@ export class HomeComponent implements OnInit {
     this.oktaAuth.$authenticationState.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
   }
 
+  form = new FormGroup({
+    string: new FormControl('', Validators.nullValidator),
+  })
+
+  getArrayMutations(arr, perms = [], len = arr.length) {
+    if (len === 1) perms.push(arr.slice(0));
+  
+    for (let i = 0; i < len; i++) {
+      this.getArrayMutations(arr, perms, len - 1);
+  
+      len % 2 // parity dependent adjacent elements swap
+        ? ([arr[0], arr[len - 1]] = [arr[len - 1], arr[0]])
+        : ([arr[i], arr[len - 1]] = [arr[len - 1], arr[i]]);
+    }
+  }
+
+  submit(){
+    console.log(this.form.value);
+    alert(this.getArrayMutations(this.form.value));
+    this.form.reset();
+  }
+  
   async ngOnInit() {
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
     if (this.isAuthenticated) {
@@ -57,4 +80,5 @@ export class HomeComponent implements OnInit {
       this.userName = userClaims.name;
     }
   }
+  
 }

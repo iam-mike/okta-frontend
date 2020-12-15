@@ -10,8 +10,12 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
+import { JsonpClientBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface Claim {
   claim: string;
@@ -23,17 +27,31 @@ interface Claim {
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
+@NgModule({
+  imports:[HttpClientModule]
+})
+
 export class ProfileComponent implements OnInit {
   idToken;
+  accessToken;
   claims: Array<Claim>;
+  treasure;
 
-  constructor(public oktaAuth: OktaAuthService) {
+  //aClaims: Array<Claim>;
+
+  constructor(public oktaAuth: OktaAuthService, private http: HttpClient) {
 
   }
-
+  
   async ngOnInit() {
     const userClaims = await this.oktaAuth.getUser();
+    this.accessToken = this.oktaAuth.getAccessToken();
     this.claims = Object.entries(userClaims).map(entry => ({ claim: entry[0], value: entry[1] }));
+    //this.aClaims = Object.entries(accessToken).map(entry => ({ claim: entry[0], value: entry[1] }));
+    this.http.post<any>('https://decedo.okta.com/oauth2/default/v1/introspect?client_id=0oa1pindts9Rdw5pr5d6&grant_type=authorization_code&redirect_uri=http://localhost:4200&code=${{ this.accessToken }}', { title: 'Okta Introspection' }).subscribe(data => {
+        this.treasure = data.id;
+    })
   }
 
 }
