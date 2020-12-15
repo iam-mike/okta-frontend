@@ -36,6 +36,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MessagesComponent } from './messages/messages.component';
 import ProfileComponent from './profile/profile.component';
+import TreasureComponent  from './treasure/treasure.component';
 
 const appRoutes: Routes = [
   {
@@ -56,6 +57,11 @@ const appRoutes: Routes = [
     canActivate: [ OktaAuthGuard ],
   },
   {
+    path: 'treasure',
+    component: TreasureComponent,
+    canActivate: [ OktaAuthGuard ],
+  },
+  {
     path: 'messages',
     component: MessagesComponent,
     canActivate: [ OktaAuthGuard ],
@@ -69,6 +75,7 @@ const appRoutes: Routes = [
     ProfileComponent,
     MessagesComponent,
     LoginComponent,
+    TreasureComponent,
   ],
   imports: [
     BrowserModule,

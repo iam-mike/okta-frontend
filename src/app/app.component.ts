@@ -10,20 +10,22 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
-import { OktaAuthService } from '@okta/okta-angular';
+import { Component, OnInit } from "@angular/core";
+import { OktaAuthService } from "@okta/okta-angular";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = "app";
   isAuthenticated: boolean;
 
   constructor(public oktaAuth: OktaAuthService) {
-    this.oktaAuth.$authenticationState.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
+    this.oktaAuth.$authenticationState.subscribe(
+      (isAuthenticated) => (this.isAuthenticated = isAuthenticated)
+    );
   }
 
   async ngOnInit() {

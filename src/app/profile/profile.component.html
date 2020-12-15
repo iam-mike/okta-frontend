@@ -1,14 +1,15 @@
 <h1 class="ui header">
-  <i aria-hidden="true" class="drivers license outline icon"></i> My ID Token Claims
+  <i aria-hidden="true" class="drivers license outline icon"></i> My ID Token
+  Claims
 </h1>
 <p>
   Your ID Token was obtained during the
-  <a href="https://developer.okta.com/docs/guides/implement-auth-code-pkce">PKCE Flow</a>
+  <a href="https://developer.okta.com/docs/guides/implement-auth-code-pkce"
+    >PKCE Flow</a
+  >
   and is now stored locally.
 </p>
-<p>
-  
-</p>
+<p></p>
 <table class="ui table">
   <thead>
     <tr>
@@ -18,11 +19,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let claim of claims">
-      <td>{{claim.claim}}</td>
-      <td id="claim-{{claim.claim}}">{{claim.value}}</td>
+      <td>{{ claim.claim }}</td>
+      <td id="claim-{{ claim.claim }}">{{ claim.value }}</td>
     </tr>
   </tbody>
 </table>
-
-<p>Whilst the ID token contains information about you, as a user. We have also beeing given an AccessToken. You may want to look for some treasure in here:<br /><br /><code>{{accessToken}}</code></p>
-<p><a href="https://jwt.ms">JWT Decoder</a></p>
